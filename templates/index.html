@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>我要中大獎！</title>
+</head>
+<body>
+    <h1>選擇遊戲</h1>
+    <form method="post">
+        <select name="game">
+            {% for game in games %}
+                <option value="{{ game }}">{{ game }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">抽選號碼</button>
+    </form>
+    {% if numbers %}
+        <h2>你的號碼: {{ numbers }}</h2>
+    {% endif %}
+</body>
+</html>
