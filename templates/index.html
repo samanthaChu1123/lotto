@@ -2,19 +2,38 @@
 <html>
 <head>
     <title>我要中大獎！</title>
+    <link rel="stylesheet" type="text/css" href="static/style.css">
 </head>
 <body>
-    <h1>選擇遊戲</h1>
-    <form method="post">
-        <select name="game">
-            {% for game in games %}
-                <option value="{{ game }}">{{ game }}</option>
-            {% endfor %}
-        </select>
-        <button type="submit">抽選號碼</button>
-    </form>
-    {% if numbers %}
-        <h2>你的號碼: {{ numbers }}</h2>
-    {% endif %}
+    <div id="container">
+        <h1>選擇遊戲</h1>
+        <form method="post">
+            <select name="game">
+                {% for g in games %}
+                    <option value="{{ g }}" {% if g == game %}selected{% endif %}>{{ g }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">抽選號碼</button>
+        </form>
+        {% if numbers %}
+            <h2>你的號碼</h2>
+                <div>
+                    {% if game in ['三星彩', '四星彩'] %}
+                        {% for num in numbers %}
+                            <span class="number">{{ num }}</span>
+                        {% endfor %}
+                    {% elif game == '威力彩' %}
+                        {% for num in numbers[:-1] | sort %}
+                            <span class="number">{{ num }}</span>
+                        {% endfor %}
+                        + <span class="number" style="background-color: rgb(23, 197, 23)">{{ numbers[-1] }}</span>
+                    {% else %}
+                        {% for num in numbers | sort %}
+                            <span class="number">{{ num }}</span>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+        {% endif %}
+    </div>
 </body>
 </html>
